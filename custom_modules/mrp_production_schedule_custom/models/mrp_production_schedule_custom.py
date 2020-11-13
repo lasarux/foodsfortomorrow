@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import logging
 import math
 from math import log10
 from collections import defaultdict, namedtuple
@@ -7,6 +8,8 @@ from odoo import api, fields, models, exceptions, SUPERUSER_ID, _
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tools.date_utils import add, subtract
 from odoo.tools.float_utils import float_round
+
+_logger = logging.getLogger(__name__)
 
 class mrp_production_schedule_custom_0(models.Model):
     
@@ -184,6 +187,9 @@ class mrp_production_schedule_custom_0(models.Model):
                     if(route.name == "Fabricar"):
                         is_fabricate = True
                 
+                _logger.info("Es el producto")
+                _logger.info(product_template.name)
+
                 moq = 0
                 if(is_purchase):
                     if(product_template.seller_ids):
@@ -202,6 +208,8 @@ class mrp_production_schedule_custom_0(models.Model):
                                     forecast_ids[i]['replenish_qty'] = 0
                                     forecast_ids[i]['state'] = 'launched'
 
+                            # mrp = self.env['mrp.production.schedule'].search([('id','=',production['id'])])
+                            # mrp.write({'forecast_qty': forecast_ids[i]['replenish_qty']})
                             # if(quantity_week < len(forecast_ids)):
                             #     for i in range(quantity_week):
                             #         forecast_ids[i]['safety_stock_qty'] = forecast_ids[i]['safety_stock_qty'] + forecast_ids[i]['replenish_qty']
@@ -223,6 +231,8 @@ class mrp_production_schedule_custom_0(models.Model):
                                 forecast_ids[i]['replenish_qty'] = 0
                                 forecast_ids[i]['state'] = 'launched'
 
+                            # mrp = self.env['mrp.production.schedule'].search([('id','=',production['id'])])
+                            # mrp[i].write({'forecast_qty': forecast_ids[i]['replenish_qty']})
 
                         # if(quantity_week < len(forecast_ids)):
                         #     for i in range(quantity_week):
