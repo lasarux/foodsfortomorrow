@@ -84,7 +84,7 @@ class mrp_production_schedule_custom_0(models.Model):
     #                         forecast_ids = production_schedule.forecast_ids
     #                         if(quantity_week < len(forecast_ids)):
     #                             for i in range(quantity_week):
-    #                                 forecast_ids[i]['state'] = 'launched' 
+    #                                 forecast_ids[i]['state'] = 'launched'
                                 
     #             elif(is_fabricate and production_schedule.product_tmpl_id.bom_ids):
     #                 time_days = production_schedule.product_tmpl_id.bom_ids[-1].x_studio_lead_time
@@ -177,7 +177,8 @@ class mrp_production_schedule_custom_0(models.Model):
         ###############################################
         
         for production in productions_schedules_states:
-            product_template =  self.env['product.template'].search([('id','=',production['product_id'][0])], limit=1)
+            product_product =  self.env['product.product'].search([('id','=',production['product_id'][0])], limit=1)
+            product_template =  product_product.product_tmpl_id
             if(product_template.route_ids):
                 is_purchase = False
                 is_fabricate = False
