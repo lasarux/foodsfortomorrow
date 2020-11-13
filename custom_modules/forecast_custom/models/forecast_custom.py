@@ -82,9 +82,11 @@ class ForecastSales(models.Model):
             }
 
     def forecast_change_field_locked(self):
-
         if(datetime.date.today().day > 25):
-            test=""
+            forecast = self.env['x.forecast.sale'].search([('x_mes','<=',datetime.date.today()),('x_locked','!=',True)])
+            for record in forecast:
+                record.x_locked = True
+            
 
 class ForecastCatalog(models.Model):
 

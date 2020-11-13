@@ -21,7 +21,7 @@
 
 
     <record id="action_forecast_report_analitica" model="ir.actions.act_window">
-        <field name="name">Cuenta Analítica</field>
+        <field name="name">Informe Cuenta Analítica</field>
         <field name="res_model">x.forecast.report.analytic</field>
         <field name="view_mode">pivot</field>
         <field name="context">{'search_default_current':1, 'search_default_customer': 1, 'group_by_no_leaf':1}</field>

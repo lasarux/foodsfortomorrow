@@ -20,7 +20,7 @@
     <record id="view_forecast_sale_tree" model="ir.ui.view">
         <field name="name">x.forecast.sale.tree</field>
         <field name="model">x.forecast.sale</field>
-        <field eval="8" name="priority"/>
+        <field eval="16" name="priority"/>
         <field name="arch" type="xml">
             <tree string="Ventas" editable="bottom" create="0">
                 <field name="x_mes_format" />
@@ -111,7 +111,7 @@
 
     <!-- CRON JOB -->
     <record id="forecast_custom_cronjob_change_locked" model="ir.cron">
-        <field name="name">Cambiar campo bloqueado</field>
+        <field name="name">Forecast Venta Cambiar a bloqueado</field>
         <field name="model_id" ref="forecast_custom.model_x_forecast_sale"/>
         <field name="user_id" ref="base.user_root" />
         <field name="interval_number">1</field>     <!-- Número de veces que se llamará  -->
@@ -122,6 +122,7 @@
         <field name="state">code</field>
         <field name="code">model.forecast_change_field_locked()</field>
         <field name="doall">1</field>               <!-- booleano que indica si las ocurrencias perdidas deben ejecutarse cuando se reinicia el servidor. -->
+        <!-- <field name="nextcall" eval="datetime.date.today().strftime('%Y-%m-%d 00:00:00')"/> -->
         <!--<field name="nextcall" >2016-12-31 23:59:59</field>-->
         <!-- <field name="priority" eval="10" /> -->
     </record>
