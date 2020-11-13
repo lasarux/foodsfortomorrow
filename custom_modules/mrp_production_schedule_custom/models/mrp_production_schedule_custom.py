@@ -203,6 +203,32 @@ class mrp_production_schedule_custom_0(models.Model):
             })
         return True
 
+    def _get_indirect_demand_ratio(self, indirect_demand_trees, other_mps):
+        """ return the schedules in arg 'other_mps' directly linked to
+        schedule self and the quantity nescessary in order to produce 1 unit of
+        the product defined on the given schedule.
+        """
+        self.ensure_one()
+        other_mps = other_mps.filtered(lambda s: s.warehouse_id == self.warehouse_id)
+        related_mps = []
+
+        def _first_matching_mps(node, ratio, related_mps):
+            if node.product == self.product_id:
+                ratio = 1.0
+            elif ratio and node.product in other_mps.mapped('product_id'):
+                related_mps.append((other_mps.filtered(lambda s: s.product_id == node.product), ratio))
+                return related_mps
+            for child in node.children:
+                related_mps = _first_matching_mps(child, ratio * child.ratio, related_mps)
+                if not ratio and related_mps:
+                    return related_mps
+            return related_mps
+
+        for tree in indirect_demand_trees:
+            if not related_mps:
+                related_mps = _first_matching_mps(tree, False, [])
+        return related_mps
+
         #     #######################################
 
         #     if(production_schedule.product_tmpl_id.route_ids):
