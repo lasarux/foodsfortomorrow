@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <!-- <t t-extend="mrp_mps_production_schedule" >
+        <t t-jquery="a.o_mrp_mps_unlink" t-operation="after" >
+            <a href="#" class="fa fa-refresh ml-3 text-black o_mrp_mps_refresh_line" role="img" aria-label="Refresh" title="Refresh"/>
+        </t>
+    </t> -->
+
+    <t t-extend="to_replenish" >
+        <t t-jquery="input.text-right" t-operation="after" >
+            <th t-attf-class="text-right"><span>VECINO SPAN</span></th>
+            <t t-debug=""/>
+            <!-- <t t-debug=""/>
+            <t t-js="ctx">
+                console.log(ctx);
+            </t> -->
+      
+            <!-- <t t-foreach="productionSchedule.forecast_ids" t-as="forecast">
+                <th t-attf-class="text-right prueba {{
+                    forecast.state == 'launched' and 'alert-dark' or
+                    forecast.state == 'to_relaunch' and 'alert-warning' or
+                    forecast.state == 'to_correct' and 'alert-danger' or
+                    forecast.to_replenish and 'alert-success' or
+                    forecast.replenish_qty_updated and 'alert-info' or ''
+                    }} {{
+                    forecast.to_replenish and 'o_mrp_mps_to_replenish' or ''
+                    }} {{
+                    forecast.forced_replenish and 'o_mrp_mps_forced_replenish' or ''
+                    }}">
+                    <div class="input-group">
+                        <span>VECINO SPAN</span>
+                        <button type="button"
+                            t-if="forecast.replenish_qty_updated"
+                            t-att-data-date_index="forecast_index"
+                            class="btn btn-link input-group-addon 
+                            o_mrp_mps_automatic_mode fa fa-times
+                            o_no_padding"/>
+                        <input type="text"
+                        t-att-data-date_index="forecast_index"
+                        t-attf-class="form-control text-right
+                            o_mrp_mps_input_replenish_qty
+                            o_top_border_hidden {{
+                            forecast.state == 'launched' and 'alert-dark' or
+                            forecast.state == 'to_relaunch' and 'alert-warning' or
+                            forecast.state == 'to_correct' and 'alert-danger' or
+                            forecast.to_replenish and 'alert-success' or
+                            forecast.replenish_qty_updated and 'alert-info' or ''  
+                            }} {{
+                            forecast.to_replenish and 'o_mrp_mps_to_replenish' or ''
+                            }} {{
+                            forecast.forced_replenish and 'o_mrp_mps_forced_replenish' or ''
+                            }}"
+                        t-att-value="formatFloat(forecast.replenish_qty, false, {'digits': [false, productionSchedule.precision_digits]})"/>
+                    </div>
+                </th>
+            </t> -->
+
+        </t>
+    </t>
+
+</templates>

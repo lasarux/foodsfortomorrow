@@ -11,7 +11,11 @@
     """,
     'depends': ['base','mrp_mps'],
     'data': [
+        'views/assets.xml',
         'views/mrp_production_schedule_custom.xml',
+    ],
+    'qweb': [
+        'static/src/xml/qweb.xml',
     ],
     'images': ['static/description/icon.png'],
     'demo': [],

@@ -106,23 +106,18 @@ class mrp_production_schedule_custom_0(models.Model):
                 else:
                     forecast_values['forecast_qty'] = 0.0
 
-                ########################################
-                if(pos < quantity_week):
-                    forecast_values['replenish_qty_updated'] = False
-                pos = pos + 1
-                # if(is_purchase):
-                #     if(pos < quantity_week):
-                #         forecast_values['replenish_qty'] = 0.0
-                #         forecast_values['replenish_qty_updated'] = 0.0
-                #     pos = pos + 1
-                #     if(forecast_values.get('replenish_qty',1) > 0 and forecast_values.get('replenish_qty',1) < moq):
-                #         forecast_values['replenish_qty'] = moq
-                ########################################
-
                 if not replenish_qty_updated:
                     replenish_qty = production_schedule._get_replenish_qty(starting_inventory_qty - forecast_values['forecast_qty'] - forecast_values['indirect_demand_qty'])
                     forecast_values['replenish_qty'] = float_round(replenish_qty, precision_rounding=rounding)
                     forecast_values['replenish_qty_updated'] = False
+
+                ########################################
+                if(pos < quantity_week):
+                    forecast_values['replenish_qty_updated'] = False
+                pos = pos + 1
+                if(forecast_values['replenish_qty'] > 0 and forecast_values['replenish_qty'] < moq):
+                    forecast_values['replenish_qty'] = moq
+                ########################################
 
                 forecast_values['starting_inventory_qty'] = float_round(starting_inventory_qty, precision_rounding=rounding)
                 forecast_values['safety_stock_qty'] = float_round(starting_inventory_qty - forecast_values['forecast_qty'] - forecast_values['indirect_demand_qty'] + forecast_values['replenish_qty'], precision_rounding=rounding)
